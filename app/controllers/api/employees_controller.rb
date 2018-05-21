@@ -23,6 +23,16 @@ class Api::EmployeesController < ApplicationController
         }
     end
 
+    def update
+        @shift = Shift.find(params[:shift_id])
+        @employee = @shift.employees.find(params[:id])
+        @employee.update!(employee_params)
+
+        render json: {
+            employee: @employee
+        }
+    end
+
     def destroy
         @shift = Shift.find(params[:shift_id])
         @employee = @shift.employees.find(params[:id]).delete
