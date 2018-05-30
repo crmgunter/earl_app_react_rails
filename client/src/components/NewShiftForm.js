@@ -15,18 +15,8 @@ class NewShiftForm extends Component {
         note: "",
         employees: [{}],
         time: "",
-        allEmployees: [{}]
     }
 
-    componentDidMount() {
-        this.getEmployees()
-    }
-
-    getEmployees = async () => {
-        const res = await axios.get('/api/list_of_employees')
-        await this.setState({allEmployees: res.data})
-        console.log(this.state.allEmployees)
-    }
 
     handleChange = async (event) => {
         const val = event.target.name
@@ -47,6 +37,7 @@ class NewShiftForm extends Component {
         await console.log(payload)
         await axios.post('/api/shifts', payload)
         await this.props.getAllShifts()
+        await this.props.toggleForm()
     }
 
   render() {
@@ -55,21 +46,21 @@ class NewShiftForm extends Component {
         <form onSubmit={this.handleSubmit}>
           <input onChange={this.handleChange} type="text" name="date" placeholder="date" value={this.state.date}/>
           <input onChange={this.handleChange} type="text" name="note" placeholder="note" value={this.state.note}/>
-          <select onChange={this.handleChange} type="text" name="employees" placeholder="employees">
+          {/* <select onChange={this.handleChange} type="text" name="employees" value={this.state.employees}>
             {this.state.allEmployees.map((employee) => (
                     <option key={employee.id} value={employee.name}>{employee.name}</option>
             ))}
           </select>
-          <select onChange={this.handleChange} name="employees" value={this.state.employees}>
+          <select onChange={this.handleDropDownChange} name="employees" value={this.state.employees}>
             {this.state.allEmployees.map((employee) => (
                     <option value={employee.name}>{employee.name}</option>
             ))}
           </select>
-          <select onChange={this.handleChange} type="text" name="employees">
+          <select onChange={this.handleDropDownChange} type="text" name="employees">
             {this.state.allEmployees.map((employee) => (
                     <option value={employee.name}>{employee.name}</option>
             ))}
-          </select>
+          </select> */}
           <input onChange={this.handleChange} type="text" name="time" placeholder="time" value={this.state.time}/>
           <button>Submit</button>
         </form>
