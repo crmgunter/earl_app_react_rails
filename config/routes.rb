@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :shifts do
       resources :employees
     end
+    resources :list_of_employees
   end
 end
 
